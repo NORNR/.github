@@ -1,10 +1,10 @@
 # NORNR
 
-**Spend governance for AI agents.**
+**Mandates, approvals and evidence for autonomous agents.**
 
 When agents start initiating real economic actions - buying API calls, paying vendors, booking resources - it is not enough that money can move. You need to decide which agent can spend, how much, against whom, and have a defensible trail when someone asks why.
 
-NORNR is the control layer between agent intent and real settlement.
+NORNR is the control layer between agent intent and real settlement. Today the primary commercial model is subscription software. Optional settlement fees only apply when NORNR itself executes the settlement rail.
 
 ---
 
@@ -23,7 +23,7 @@ Agent wants to spend  ->  Policy engine evaluates  ->  Approved / Queued / Block
 
 - **Policy engine** - set limits, approval thresholds, counterparty allowlists, and anomaly triggers
 - **Approval queue** - human-in-the-loop when it matters, automated when it does not
-- **Signed receipts** - every transaction gets a verifiable receipt
+- **Signed receipts** - every governed action gets a verifiable receipt
 - **Audit export** - signed manifests, close bundles, and cost attribution ready for review
 - **Budget tags** - attribute spend by team, project, customer, or cost center
 - **Anomaly detection** - velocity patterns, split-purchase detection, and auto-pause
@@ -38,20 +38,20 @@ Agent wants to spend  ->  Policy engine evaluates  ->  Approved / Queued / Block
 import { Wallet } from "@nornr/sdk";
 
 const wallet = await Wallet.create({
-  owner: "my-agent",
-  dailyLimit: 50,
-  requireApprovalAbove: 20,
+  owner: "research-agent",
+  dailyLimit: 100,
+  requireApprovalAbove: 25,
   baseUrl: "https://nornr.com",
 });
 
-const payment = await wallet.pay({
+const decision = await wallet.pay({
   amount: 12.5,
-  to: "stripe-api",
-  purpose: "process customer invoice",
+  to: "openai",
+  purpose: "model inference",
 });
 
-if (payment.requiresApproval) {
-  await wallet.approveIfNeeded(payment);
+if (decision.requiresApproval) {
+  await wallet.approveIfNeeded(decision);
 }
 ```
 
@@ -61,28 +61,28 @@ if (payment.requiresApproval) {
 from agentpay import Wallet
 
 wallet = Wallet.create(
-    owner="my-agent",
-    daily_limit=50,
-    require_approval_above=20,
+    owner="research-agent",
+    daily_limit=100,
+    require_approval_above=25,
     base_url="https://nornr.com",
 )
 
-payment = wallet.pay(
+decision = wallet.pay(
     amount=12.50,
-    to="stripe-api",
-    purpose="process customer invoice",
+    to="openai",
+    purpose="model inference",
 )
 
-if payment.get("requiresApproval"):
-    wallet.approve_if_needed(payment)
+if decision.get("requiresApproval"):
+    wallet.approve_if_needed(decision)
 ```
 
 ---
 
 ## SDKs
 
-- [sdk-ts](https://github.com/NORNR/sdk-ts) — `npm install @nornr/sdk`
-- [sdk-py](https://github.com/NORNR/sdk-py) — `pip install agentpay`
+- [sdk-ts](https://github.com/NORNR/sdk-ts) - `npm install @nornr/sdk`
+- [sdk-py](https://github.com/NORNR/sdk-py) - `pip install agentpay`
 
 ---
 
@@ -98,7 +98,7 @@ NORNR is framework-agnostic:
 
 ---
 
-## Why not X?
+## Why NORNR
 
 | | NORNR | AgentKit (Coinbase) | Stripe Treasury | Build it yourself |
 |---|---|---|---|---|
@@ -107,7 +107,7 @@ NORNR is framework-agnostic:
 | **Approval queue** | ✓ Slack + API | ✗ | ✗ | You build it |
 | **Anomaly detection** | ✓ | ✗ | ✗ | You build it |
 | **Signed audit export** | ✓ | ✗ | ✗ | You build it |
-| **Requires crypto** | ✗ Optional | ✓ Required | ✗ | — |
+| **Requires crypto** | Optional | Required | No | — |
 | **Works with any agent framework** | ✓ | Partial | ✗ | — |
 | **Enterprise control plane** | ✓ | ✗ | Partial | You build it |
 
@@ -115,11 +115,12 @@ NORNR is framework-agnostic:
 
 ## Pricing
 
+Subscriptions carry the product today. Governed spend is mainly the upgrade trigger; optional settlement fees only apply when NORNR itself executes a configured rail adapter.
+
 |  | Free | Builder | Growth | Enterprise |
 |---|---|---|---|---|
 | Governed spend | $500/mo | $10k/mo | $100k/mo | Custom |
 | Agents | 3 | 25 | 100 | Unlimited |
-| Settlement fee | 1.00% | 0.50% | 0.30% | Negotiated |
 | Price | $0 | $79/mo | $299/mo | Contact us |
 
 Free tier is free forever. No credit card required.
@@ -129,14 +130,6 @@ Free tier is free forever. No credit card required.
 ## Get started
 
 [Create a free workspace ->](https://nornr.com)
-
----
-
-## Philosophy
-
-Autonomy without accountability is not freedom. It is unowned liability.
-
-NORNR is built on the premise that the companies that will actually deploy autonomous agents at scale are the ones who can answer: what did my agents spend, why was it allowed, and who approved it?
 
 ---
 
