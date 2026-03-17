@@ -2,13 +2,32 @@
 
 **Mandates, approvals and evidence for autonomous agents.**
 
+Give your agent a budget, approval rules, and an audit trail.
+
 When agents start initiating real economic actions - buying API calls, paying vendors, booking resources - it is not enough that money can move. You need to decide which agent can spend, how much, against whom, and have a defensible trail when someone asks why.
 
 NORNR is the control layer between agent intent and real settlement. Today the primary commercial model is subscription software. Optional settlement fees only apply when NORNR itself executes the settlement rail.
 
+## Start here
+
+- [Try the 5-minute quickstart](https://nornr.com/quickstart)
+- [Open the control room](https://nornr.com/app)
+- [Apply as a design partner](https://nornr.com/#design-partner)
+- [TypeScript SDK](https://github.com/NORNR/sdk-ts)
+- [Python SDK](https://github.com/NORNR/sdk-py)
+
+Free tier is free forever. No credit card required.
+
 ---
 
 ![NORNR Control Room](https://raw.githubusercontent.com/NORNR/.github/main/profile/control-room.png)
+
+## What to expect in 5 minutes
+
+1. Create one governed wallet for an agent.
+2. Submit one spend intent against the hosted control plane.
+3. See whether policy returns `approved`, `queued`, or `rejected`.
+4. Open the control room to inspect approvals and evidence.
 
 ## What NORNR does
 
@@ -77,6 +96,10 @@ if decision.get("requiresApproval"):
     wallet.approve_if_needed(decision)
 ```
 
+Need the shortest path instead?
+
+- [Hosted quickstart](https://nornr.com/quickstart)
+
 ---
 
 ## SDKs
@@ -130,6 +153,10 @@ Free tier is free forever. No credit card required.
 ## Get started
 
 [Create a free workspace ->](https://nornr.com)
+
+Need help or want to tell us where the quickstart broke?
+
+- Support: [support@nornr.com](mailto:support@nornr.com)
 
 ---
 
